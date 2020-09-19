@@ -13,12 +13,7 @@ public class Project {
     }
 
     public Project(String name) {
-        super();
         this.name = name;
-    }
-
-    public static Project createProject(String name) {
-        return new Project(name);
     }
 
     public void add(Task task) {
