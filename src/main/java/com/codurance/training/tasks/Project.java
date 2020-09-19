@@ -8,6 +8,10 @@ public class Project {
     String name;
     Tasks tasks = new Tasks();
 
+    public String getName() {
+        return name;
+    }
+
     public Project(String name) {
         super();
         this.name = name;

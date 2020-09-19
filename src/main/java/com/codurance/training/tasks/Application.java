@@ -10,7 +10,7 @@ public final class Application implements Runnable {
     public static final int COMMAND_INDEX = 0;
     public static final int SUBCOMMAND_INDEX = 1;
 
-    private Projects projects = new Projects();
+    private Projects projects = Projects.create();
     private final BufferedReader in;
     private final PrintWriter out;
 
@@ -71,8 +71,8 @@ public final class Application implements Runnable {
     }
 
     private void show() {
-        projects.getProjects().forEach((projectName, project) -> {
-            out.println(projectName);
+        projects.getProjectsList().forEach(project -> {
+            out.println(project.getName());
             for (Task task : project.getTasks()) {
                 out.printf("    [%c] %d: %s%n", (task.isDone() ? 'x' : ' '), task.getId(), task.getDescription());
             }

@@ -1,34 +1,43 @@
 package com.codurance.training.tasks;
 
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
 public class Projects {
 
-    private Map<String, Project> projects;
+    List<Project> projects;
 
     public Projects() {
-        this.projects = new LinkedHashMap<>();
+        this.projects = new ArrayList<>();
+    }
+
+    public static Projects create() {
+        return new Projects();
     }
 
     public void add(String projectName) {
-        this.projects.put(projectName, Project.createProject(projectName));
+        projects.add(new Project(projectName));
     }
 
     public Project get(String projectName) {
-        return projects.getOrDefault(projectName, null);
+        return projects.stream().filter(project -> project.name.equals(projectName)).findFirst()
+                .orElse(null);
     }
 
     public boolean has(int taskId) {
-        return projects.entrySet().stream().anyMatch(entry -> entry.getValue().has(taskId));
+        return projects.stream().anyMatch(project -> project.has(taskId));
     }
 
     public void setDone(int taskId, boolean done) {
-        projects.entrySet().stream().filter(entry -> entry.getValue().has(taskId)).findFirst()
-                .ifPresent(entry -> entry.getValue().setDone(taskId, done));
+        projects.stream().filter(project -> project.has(taskId)).findFirst()
+                .ifPresent(project -> project.setDone(taskId, done));
     }
 
-    public Map<String, Project> getProjects() {
+    public List<Project> getProjectsList() {
         return projects;
     }
+
+
 }
