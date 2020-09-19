@@ -12,7 +12,7 @@ public class Projects {
     }
 
     public void add(String projectName) {
-        this.projects.put(projectName, new Project());
+        this.projects.put(projectName, Project.createProject(projectName));
     }
 
     public Project get(String projectName) {

@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 
-public final class TaskList implements Runnable {
+public final class Application implements Runnable {
     private static final String QUIT = "quit";
     public static final int COMMAND_INDEX = 0;
     public static final int SUBCOMMAND_INDEX = 1;
@@ -19,10 +19,10 @@ public final class TaskList implements Runnable {
     public static void main(String[] args) throws Exception {
         BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
         PrintWriter out = new PrintWriter(System.out);
-        new TaskList(in, out).run();
+        new Application(in, out).run();
     }
 
-    public TaskList(BufferedReader reader, PrintWriter writer) {
+    public Application(BufferedReader reader, PrintWriter writer) {
         this.in = reader;
         this.out = writer;
     }
