@@ -100,6 +100,13 @@ public final class ApplicationTest {
 
         execute("quit");
     }
+    @Test(timeout = 1000)
+    public void invalid_command() throws IOException {
+        execute("invalid");
+
+        readLines("I don't know what the command \"invalid\" is.");
+        execute("quit");
+    }
 
     @Test(timeout = 1000) public void
     help_works() throws IOException {
