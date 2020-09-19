@@ -129,6 +129,25 @@ public final class ApplicationTest {
         execute("quit");
     }
 
+    @Test (timeout = 1000)
+    public void uncheck_non_existing_task() throws IOException {
+
+        execute("add project abc");
+        execute("uncheck 1");
+        readLines("Could not find a task with an ID of 1.");
+        execute("quit");
+
+    }
+
+    @Test (timeout = 1000)
+    public void check_non_existing_task() throws IOException {
+
+        execute("add project abc");
+        execute("check 1");
+        readLines("Could not find a task with an ID of 1.");
+        execute("quit");
+
+    }
     private void execute(String command) throws IOException {
         read(PROMPT);
         write(command);
