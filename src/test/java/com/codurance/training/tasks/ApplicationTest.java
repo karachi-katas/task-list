@@ -80,6 +80,8 @@ public final class ApplicationTest {
         execute("check 5");
         execute("check 6");
 
+        execute("uncheck 3");
+
         execute("show");
         readLines(
                 "secrets",
@@ -87,7 +89,7 @@ public final class ApplicationTest {
                 "    [ ] 2: Destroy all humans.",
                 "",
                 "training",
-                "    [x] 3: Four Elements of Simple Design",
+                "    [ ] 3: Four Elements of Simple Design",
                 "    [ ] 4: SOLID",
                 "    [x] 5: Coupling and Cohesion",
                 "    [x] 6: Primitive Obsession",
