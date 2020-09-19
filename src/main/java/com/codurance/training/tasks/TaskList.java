@@ -11,6 +11,8 @@ import java.util.Map;
 
 public final class TaskList implements Runnable {
     private static final String QUIT = "quit";
+    public static final int COMMAND_INDEX = 0;
+    public static final int SUBCOMMAND_INDEX = 1;
 
     private final Map<String, List<Task>> tasks = new LinkedHashMap<>();
     private final BufferedReader in;
@@ -49,19 +51,19 @@ public final class TaskList implements Runnable {
 
     private void execute(String commandLine) {
         String[] commandRest = commandLine.split(" ", 2);
-        String command = commandRest[0];
+        String command = commandRest[COMMAND_INDEX];
         switch (command) {
             case "show":
                 show();
                 break;
             case "add":
-                add(commandRest[1]);
+                add(commandRest[SUBCOMMAND_INDEX]);
                 break;
             case "check":
-                check(commandRest[1]);
+                check(commandRest[SUBCOMMAND_INDEX]);
                 break;
             case "uncheck":
-                uncheck(commandRest[1]);
+                uncheck(commandRest[SUBCOMMAND_INDEX]);
                 break;
             case "help":
                 help();
@@ -88,9 +90,13 @@ public final class TaskList implements Runnable {
         if (subcommand.equals("project")) {
             addProject(subcommandRest[1]);
         } else if (subcommand.equals("task")) {
-            String[] projectTask = subcommandRest[1].split(" ", 2);
-            addTask(projectTask[0], projectTask[1]);
+            addTask(subcommandRest[1]);
         }
+    }
+
+    private void addTask(String s) {
+        String[] projectTask = s.split(" ", 2);
+        addTask(projectTask[0], projectTask[1]);
     }
 
     private void addProject(String name) {
@@ -117,6 +123,7 @@ public final class TaskList implements Runnable {
 
     private void setDone(String idString, boolean done) {
         int id = Integer.parseInt(idString);
+
         for (Map.Entry<String, List<Task>> project : tasks.entrySet()) {
             for (Task task : project.getValue()) {
                 if (task.getId() == id) {
