@@ -16,7 +16,7 @@ public final class TaskList implements Runnable {
     public static final int SUBCOMMAND_INDEX = 1;
 
     private final Map<String, List<Task>> tasks = new LinkedHashMap<>();
-    private List<Project> projects = new ArrayList<>();
+    private Map<String, Project> projects = new LinkedHashMap<>();
     private final BufferedReader in;
     private final PrintWriter out;
 
@@ -103,17 +103,20 @@ public final class TaskList implements Runnable {
 
     private void addProject(String name) {
         tasks.put(name, new ArrayList<Task>());
-        projects.add(new Project(name));
+        projects.put(name, new Project(name));
     }
 
-    private void addTask(String project, String description) {
-        List<Task> projectTasks = tasks.get(project);
-        if (projectTasks == null) {
-            out.printf("Could not find a project with the name \"%s\".", project);
+    private void addTask(String projectName, String description) {
+        List<Task> projectTasks = tasks.get(projectName);
+        Project project = projects.get(projectName);
+        if (projectTasks == null || project == null) {
+            out.printf("Could not find a project with the name \"%s\".", projectName);
             out.println();
             return;
         }
-        projectTasks.add(new Task(nextId(), description, false));
+        Task task = new Task(nextId(), description, false);
+        projectTasks.add(task);
+        project.add(task);
     }
 
     private void check(String idString) {
@@ -125,9 +128,16 @@ public final class TaskList implements Runnable {
     }
 
     private void setDone(String idString, boolean done) {
+
         int id = Integer.parseInt(idString);
-        for (Map.Entry<String, List<Task>> project : tasks.entrySet()) {
-            Optional<Task> task = getTaskBy(id, project.getValue());
+
+        List<Project> projectsss = new ArrayList<>();
+        for (Map.Entry<String, Project> project : projects.entrySet()) {
+            projectsss.add(project.getValue());
+        }
+
+        for (Map.Entry<String, Project> project : projects.entrySet()) {
+            Optional<Task> task = project.getValue().getTaskBy(id);
             if (task.isPresent()){
                 task.get().setDone(done);
                 return;
@@ -135,10 +145,6 @@ public final class TaskList implements Runnable {
         }
         out.printf("Could not find a task with an ID of %d.", id);
         out.println();
-    }
-
-    private Optional<Task> getTaskBy(int id, List<Task> project){
-        return project.stream().filter(task -> task.getId()==id).findFirst();
     }
 
     private void help() {
