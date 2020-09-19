@@ -103,7 +103,6 @@ public final class ApplicationTest {
     @Test(timeout = 1000)
     public void invalid_command() throws IOException {
         execute("invalid");
-
         readLines("I don't know what the command \"invalid\" is.");
         execute("quit");
     }
@@ -120,6 +119,13 @@ public final class ApplicationTest {
                 "  uncheck <task ID>",
                 "");
 
+        execute("quit");
+    }
+
+    @Test(timeout = 1000)
+    public void add_task_to_non_existing_project() throws IOException {
+        execute("add task secrets Eat more donuts.");
+        readLines("Could not find a project with the name \"secrets\".");
         execute("quit");
     }
 
