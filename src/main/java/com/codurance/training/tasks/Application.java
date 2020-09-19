@@ -71,7 +71,7 @@ public final class Application implements Runnable {
     }
 
     private void show() {
-        out.print(projects);
+        out.print(projects.toString());
     }
 
     private void add(String commandLine) {
