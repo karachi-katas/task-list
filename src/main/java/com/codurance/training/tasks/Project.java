@@ -1,7 +1,6 @@
 package com.codurance.training.tasks;
 
 import java.util.List;
-import java.util.Optional;
 
 public class Project {
 
@@ -31,4 +30,10 @@ public class Project {
     public void setDone(int taskId, boolean done) {
         tasks.setDone(taskId, done);
     }
+
+    @Override
+    public String toString() {
+        return tasks.toString();
+    }
+
 }

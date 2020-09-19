@@ -32,4 +32,14 @@ public class Tasks {
         Optional<Task> task = getTaskBy(taskId);
         task.ifPresent(t -> t.setDone(done));
     }
+
+    @Override
+    public String toString() {
+        StringBuilder stringBuilder = new StringBuilder();
+        for (Task task : getTasks()) {
+            stringBuilder.append(task);
+        }
+        return stringBuilder.toString();
+    }
+
 }

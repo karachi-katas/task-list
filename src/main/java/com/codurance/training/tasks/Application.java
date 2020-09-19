@@ -71,13 +71,7 @@ public final class Application implements Runnable {
     }
 
     private void show() {
-        projects.getProjectsList().forEach(project -> {
-            out.println(project.getName());
-            for (Task task : project.getTasks()) {
-                out.printf("    [%c] %d: %s%n", (task.isDone() ? 'x' : ' '), task.getId(), task.getDescription());
-            }
-            out.println();
-        });
+        out.print(projects);
     }
 
     private void add(String commandLine) {

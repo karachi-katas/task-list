@@ -1,9 +1,7 @@
 package com.codurance.training.tasks;
 
 import java.util.ArrayList;
-import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
 
 public class Projects {
 
@@ -39,5 +37,17 @@ public class Projects {
         return projects;
     }
 
+
+    @Override
+    public String toString() {
+        StringBuilder stringBuilder = new StringBuilder();
+        getProjectsList().forEach(project -> {
+            stringBuilder.append(project.getName());
+            stringBuilder.append("\n");
+            stringBuilder.append(project);
+            stringBuilder.append("\n");
+        });
+        return stringBuilder.toString();
+    }
 
 }
