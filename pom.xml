@@ -7,6 +7,11 @@
 
     <name>Task List</name>
 
+    <properties>
+        <maven.compiler.target>1.8</maven.compiler.target>
+        <maven.compiler.source>1.8</maven.compiler.source>
+    </properties>
+
     <dependencies>
         <dependency>
             <groupId>junit</groupId>
@@ -21,31 +26,4 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
-
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>2.5.1</version>
-                <configuration>
-                    <source>1.8</source>
-                    <target>1.8</target>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>appassembler-maven-plugin</artifactId>
-                <version>1.8</version>
-                <configuration>
-                    <programs>
-                        <program>
-                            <id>task-list</id>
-                            <mainClass>com.codurance.training.tasks.TaskList</mainClass>
-                        </program>
-                    </programs>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
 </project>
